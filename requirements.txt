@@ -2,3 +2,4 @@ requests
 telethon
 flask
 aiohttp
+telebot
