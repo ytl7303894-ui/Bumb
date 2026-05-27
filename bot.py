@@ -15,7 +15,7 @@ import sqlite3
 import re
 
 # ==================== CONFIGURATION ====================
-BOT_TOKEN = "8919184870:AAG-4HDkTLXH2PV8jCtGVijU-MrNWvDK6-w"
+BOT_TOKEN = "8919184870:AAEjRe6ZmWhUahyFzXJVsj5nBj4E-DhWLBk"
 ADMIN_IDS = [8477195695]  # Replace with your Telegram user ID
 CHANNEL_ID = "@BGMI_MAIN"  # Your channel username
 OWNER_USERNAME = "@BGMI_CHEATS_SETUP"  # Your Telegram username
